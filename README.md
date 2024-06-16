@@ -1,22 +1,37 @@
-# Introduction
+# Demo
 
-We're thrilled to have you at this stage of our selection process! This test is designed to assess your skills and approach to problem-solving in a practical scenario. Please carefully follow the instructions below and ensure you read through the entire document. Good luck!
+https://github.com/KhoiVVAPer/Serdao-HomeAssignment/assets/38206642/0cc3dc27-b621-48f9-9375-4dd025805e13
 
-# Set up the Project
+## Installation
 
-A significant challenge when working with React Native is setting up a complete environment before being able to run the project. We have intentionally omitted these instructions to assess your ability to independently set up said environment.
+### Run it locally
 
-# Test
+Require node.js, npm install -g react-native-cli , xcode, android studio
 
-You will be working on an application that facilitates transactions to beneficiaries. To successfully complete the test, you will need to implement the following features:
- - Introduce a new page to create a beneficiary, including fields for their first name, last name, and IBAN. Additionally, incorporate an IBAN validator to ensure the IBAN's validity.
- - Enable the selection of a beneficiary from a list when making a transaction.
- - Preserve the state of the application so that upon reopening, the list of beneficiaries, transaction history, and balance are retained.
+1. Clone the project
 
-Note: you have free rein in how you want to implement this test, give it you best shot!
+```
+git clone https://github.com/KhoiVVAPer/Serdao-HomeAssignment.git
+```
 
-# Result
+2. Install dependencies
 
-Please create a new Git repository to store both the test first version and your modifications. Document all the commands needed to install and launch this project, excluding the installation of any external SDKs/platforms, our focus will remain strictly on this project.
+```
+cd Serdao-HomeAssignment/
 
-We hope that you will enjoy taking this test, best of luck!
+# Using yarn
+yarn install
+
+# Using npm
+npm install
+```
+
+3. Run the cross-platform app
+
+```
+# Using yarn
+yarn start
+
+# Using npm
+npm start
+```
