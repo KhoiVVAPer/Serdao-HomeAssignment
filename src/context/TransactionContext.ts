@@ -1,46 +1,67 @@
-import {createContext, useMemo, useState} from 'react';
-import {Transaction, Account} from '../types';
+import {createContext, useCallback, useMemo} from 'react';
+import {Transaction, Beneficiary} from 'src/types';
+import {usePersistState} from '@hooks/usePersistState';
 
 type TransactionContextData = {
-  transactions?: Transaction[];
+  transactions: Transaction[];
   currentBalance: number;
-  addTransaction: (amount: string, account: Account) => void;
+  addTransaction: (data: Transaction) => void;
+  beneficiaries: Beneficiary[];
+  addBeneficiary: (data: Beneficiary) => void;
 };
 
 const defaultContextValues: TransactionContextData = {
-  transactions: undefined,
+  transactions: [],
   currentBalance: 1000,
   addTransaction: () => false,
+  beneficiaries: [],
+  addBeneficiary: () => false,
 };
 
 export const TransactionContext =
   createContext<TransactionContextData>(defaultContextValues);
 
 export function useTransactionContextValue(): TransactionContextData {
-  const [transactions, setTransactions] = useState<Transaction[]>();
-  const [currentBalance, setCurrentBalance] = useState(1000);
+  const [transactions, setTransactions] = usePersistState('transactions', []);
+  const [beneficiaries, setBeneficiaries] = usePersistState('beneficiary', []);
+  const [currentBalance, setCurrentBalance] = usePersistState(
+    'currentBalance',
+    1000,
+  );
 
-  const addTransaction = (amount: string, account: Account) => {
-    const newTransaction = {
-      id: `${Date.now()}`,
-      amount: parseFloat(amount),
-      account,
-    };
+  const addTransaction = useCallback(
+    (data: Transaction) => {
+      const listTransactions = [...transactions];
+      listTransactions.push(data);
+      setTransactions(listTransactions);
+      setCurrentBalance(currentBalance - data.amount);
+    },
+    [currentBalance, setCurrentBalance, setTransactions, transactions],
+  );
 
-    setTransactions(prevTransactions =>
-      prevTransactions
-        ? [...prevTransactions, newTransaction]
-        : [newTransaction],
-    );
-    setCurrentBalance(prevBalance => prevBalance - parseFloat(amount));
-  };
+  const addBeneficiary = useCallback(
+    (item: Beneficiary) => {
+      const listBeneficiary = [...beneficiaries];
+      listBeneficiary.push(item);
+      setBeneficiaries(listBeneficiary);
+    },
+    [beneficiaries, setBeneficiaries],
+  );
 
   return useMemo(
     () => ({
       transactions,
       currentBalance,
       addTransaction,
+      beneficiaries,
+      addBeneficiary,
     }),
-    [transactions, currentBalance],
+    [
+      transactions,
+      currentBalance,
+      addTransaction,
+      beneficiaries,
+      addBeneficiary,
+    ],
   );
 }

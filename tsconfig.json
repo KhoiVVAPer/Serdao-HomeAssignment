@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
-    "jsx": "react"
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "paths": {
+      "src/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@context/*": ["./src/context/*"],
+      "@models/*": ["./src/models/*"],
+    }
   },
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

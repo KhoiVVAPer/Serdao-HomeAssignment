@@ -3,25 +3,34 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Route from './Routes';
 import HomeScreen from '../screens/HomeScreen/Home.container';
-import TransactionScreen from '../screens/TransactionScreen/Transaction.container';
+import CreateTransactionScreen from '../screens/CreateTransactionScreen/CreateTransaction.container';
 import TransactionProvider from '../context/TransactionProvider';
+import CreateBeneficiaryScreen from '../screens/CreateBeneficiaryScreen/CreateBeneficiary.container';
 
 const Stack = createNativeStackNavigator();
 
 export type AppNavigatorParams = {
   [Route.HOME_SCREEN]: undefined;
   [Route.TRANSACTION_SCREEN]: undefined;
+  [Route.BENEFICIARY_SCREEN]: undefined;
 };
 
 const AppStack = () => {
   return (
     <TransactionProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
           <Stack.Screen name={Route.HOME_SCREEN} component={HomeScreen} />
           <Stack.Screen
             name={Route.TRANSACTION_SCREEN}
-            component={TransactionScreen}
+            component={CreateTransactionScreen}
+          />
+          <Stack.Screen
+            name={Route.BENEFICIARY_SCREEN}
+            component={CreateBeneficiaryScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
