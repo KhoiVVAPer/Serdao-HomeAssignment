@@ -4,6 +4,7 @@ import {styles} from './Home.styles';
 import {Transaction} from 'src/types';
 import CustomButton from '@components/button/Button';
 import {images} from '@assets/images';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type HomeViewProps = {
   transactions?: Transaction[];
@@ -54,31 +55,33 @@ export const HomeView = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.balanceText}>
-        Current Balance:
-        <Text style={styles.boldText}> ${currentBalance.toFixed(2)}</Text>
-      </Text>
-      <View style={styles.row}>
-        <CustomButton
-          icon={images.moneyTransfer}
-          label="Add Transaction"
-          onPress={onPressAddTransaction}
+      <SafeAreaView>
+        <Text style={styles.balanceText}>
+          Current Balance:
+          <Text style={styles.boldText}> ${currentBalance.toFixed(2)}</Text>
+        </Text>
+        <View style={styles.row}>
+          <CustomButton
+            icon={images.moneyTransfer}
+            label="Add Transaction"
+            onPress={onPressAddTransaction}
+          />
+          <View style={styles.horizontalSpace} />
+          <CustomButton
+            icon={images.beneficiary}
+            label="Create Beneficiary"
+            onPress={onPressCreateBeneficiary}
+          />
+        </View>
+        <FlatList
+          data={transactions}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => renderItem(item)}
+          contentContainerStyle={styles.listContainer}
+          ListEmptyComponent={renderEmptyList}
+          ListHeaderComponent={renderListHeader}
         />
-        <View style={styles.horizontalSpace} />
-        <CustomButton
-          icon={images.beneficiary}
-          label="Create Beneficiary"
-          onPress={onPressCreateBeneficiary}
-        />
-      </View>
-      <FlatList
-        data={transactions}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => renderItem(item)}
-        contentContainerStyle={styles.listContainer}
-        ListEmptyComponent={renderEmptyList}
-        ListHeaderComponent={renderListHeader}
-      />
+      </SafeAreaView>
     </View>
   );
 };

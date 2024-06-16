@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   prefixSection: {
     height: 28,
     width: 28,
-    marginRight: 10,
+    marginBottom: 10,
   },
   icon: {
     width: '100%',

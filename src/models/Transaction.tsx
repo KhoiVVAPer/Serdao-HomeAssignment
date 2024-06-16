@@ -20,7 +20,7 @@ export const TransactionSchema = (avaialableBalance: number) =>
     amount: Yup.number()
       .required('Please input amount')
       .max(
-        900,
+        avaialableBalance,
         `Insufficient available balance in your account \n(current balance: $${avaialableBalance})`,
       ),
     IBAN: Yup.string()

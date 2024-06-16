@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen/Home.container';
 import CreateTransactionScreen from '../screens/CreateTransactionScreen/CreateTransaction.container';
 import TransactionProvider from '../context/TransactionProvider';
 import CreateBeneficiaryScreen from '../screens/CreateBeneficiaryScreen/CreateBeneficiary.container';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,22 +19,24 @@ export type AppNavigatorParams = {
 const AppStack = () => {
   return (
     <TransactionProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name={Route.HOME_SCREEN} component={HomeScreen} />
-          <Stack.Screen
-            name={Route.TRANSACTION_SCREEN}
-            component={CreateTransactionScreen}
-          />
-          <Stack.Screen
-            name={Route.BENEFICIARY_SCREEN}
-            component={CreateBeneficiaryScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name={Route.HOME_SCREEN} component={HomeScreen} />
+            <Stack.Screen
+              name={Route.TRANSACTION_SCREEN}
+              component={CreateTransactionScreen}
+            />
+            <Stack.Screen
+              name={Route.BENEFICIARY_SCREEN}
+              component={CreateBeneficiaryScreen}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </TransactionProvider>
   );
 };

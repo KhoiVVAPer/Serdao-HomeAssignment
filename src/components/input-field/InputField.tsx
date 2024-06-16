@@ -1,6 +1,13 @@
 import {useField} from 'formik';
 import React from 'react';
-import {StyleSheet, Text, TextInput, TextInputProps, View} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from 'react-native';
 import DropDown, {DropdownItem} from '../dropdown/Dropdown';
 
 type InputType = 'input' | 'dropdown';
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   input: {
-    paddingVertical: 10,
+    paddingVertical: Platform.OS === 'ios' ? 15 : 10,
     paddingHorizontal: 10,
     borderRadius: 5,
     borderWidth: 1,

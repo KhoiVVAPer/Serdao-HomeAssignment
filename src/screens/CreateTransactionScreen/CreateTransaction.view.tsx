@@ -8,6 +8,7 @@ import {Beneficiary} from 'src/types';
 import Button from '@components/button/Button';
 import AppHeader from '@components/header/Header';
 import FormWrapper from '@components/form-wrapper/FormWrapper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type TransactionViewProps = {
   onSubmit: (data: TransactionData) => void;
@@ -26,32 +27,36 @@ const CreateTransactionView = ({
     <Formik
       initialValues={TransactionData.empty()}
       validationSchema={TransactionSchema(currentBalance)}
-      validateOnBlur={false}
-      validateOnChange={false}
+      validateOnChange={true}
       onSubmit={onSubmit}>
       {({submitForm}) => (
         <FormWrapper style={styles.container}>
-          <AppHeader title="Create transaction" onPressPrefixIcon={onGoBack} />
-          <View style={styles.content}>
-            <InputField
-              name="amount"
-              keyboardType="numeric"
-              placeholder="Enter amount"
+          <SafeAreaView style={styles.content}>
+            <AppHeader
+              title="Create transaction"
+              onPressPrefixIcon={onGoBack}
             />
-            <InputField name="name" placeholder="Recipient Name" />
-            <InputField name="IBAN" placeholder="Recipient IBAN" />
-            {beneficiaries?.length > 0 && (
+            <View style={styles.content}>
               <InputField
-                type="dropdown"
-                name="beneficiaryId"
-                data={beneficiaries.map(d => ({
-                  id: d.id,
-                  label: `${d.firstName} ${d.lastName}`,
-                }))}
+                name="amount"
+                keyboardType="numeric"
+                placeholder="Enter amount"
               />
-            )}
-          </View>
-          <Button label="Submit Transaction" onPress={submitForm} />
+              <InputField name="name" placeholder="Recipient Name" />
+              <InputField name="IBAN" placeholder="Recipient IBAN" />
+              {beneficiaries?.length > 0 && (
+                <InputField
+                  type="dropdown"
+                  name="beneficiaryId"
+                  data={beneficiaries.map(d => ({
+                    id: d.id,
+                    label: `${d.firstName} ${d.lastName}`,
+                  }))}
+                />
+              )}
+            </View>
+            <Button label="Submit Transaction" onPress={submitForm} />
+          </SafeAreaView>
         </FormWrapper>
       )}
     </Formik>
